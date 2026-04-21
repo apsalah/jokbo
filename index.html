@@ -12173,37 +12173,6 @@ function buildHtmlWithCurrentData() {
 }
 
 async function saveHtmlFile() {
-  const htmlText = buildHtmlWithCurrentData();
-  const fileName = 'anatomy_viewer_updated.html';
-
-  try {
-    if (window.showSaveFilePicker) {
-      const handle = await window.showSaveFilePicker({
-        suggestedName: fileName,
-        types: [{
-          description: 'HTML file',
-          accept: { 'text/html': ['.html'] }
-        }]
-      });
-      const writable = await handle.createWritable();
-      await writable.write(htmlText);
-      await writable.close();
-      alert('HTML 저장이 완료되었습니다.');
-      return;
-    }
-  } catch (error) {
-    if (error && error.name === 'AbortError') return;
-  }
-
-  const blob = new Blob([htmlText], { type: 'text/html;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = fileName;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 prevBtn.addEventListener('click', () => goToIndex(currentIndex - 1));
